@@ -65,7 +65,7 @@ def run():
             "journal": v.get("fulljournalname"),
             "pubdate": v.get("pubdate"),
             "authors": "; ".join([a.get("name", "") for a in v.get("authors", [])]),
-            "doi": next((i.get("identifier", "") for i in v.get("articleids", []) if i.get("idtype") == "doi"), ""),
+            "doi": next(((i.get("value") or i.get("identifier") or "") for i in v.get("articleids", []) if i.get("idtype") == "doi"), ""),
             "url": f"https://pubmed.ncbi.nlm.nih.gov/{v.get('uid')}/",
             "ingested_at": ts_utc(),
         })
